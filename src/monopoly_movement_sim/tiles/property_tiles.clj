@@ -1,4 +1,4 @@
-(ns monopoly-movement-sim.property-tiles)
+(ns monopoly-movement-sim.tiles.property-tiles)
 
 (def rail-roads
   #{::reading-rr ::pennsylvania-rr ::bo-rr ::short-rr})
