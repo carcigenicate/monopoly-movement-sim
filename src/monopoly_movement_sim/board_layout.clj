@@ -1,8 +1,14 @@
-(ns monopoly-movement-sim.board-layout)
+(ns monopoly-movement-sim.board-layout
+  (:require [monopoly-movement-sim.tiles.property-tiles :as pt]
+            [monopoly-movement-sim.tiles.action-tiles :as at]
+            [monopoly-movement-sim.tiles.misc-tiles :as mt]
 
-; TODO: Only 39!? Missing 1 tile
+            [helpers.general-helpers :as g]))
+
 (def board-layout
-  [::pt/mediterranean
+  [::mt/go
+
+   ::pt/mediterranean
    ::at/community-chest
    ::pt/baltic
 
@@ -55,3 +61,29 @@
    ::pt/park
    ::mt/luxury-tax
    ::pt/boardwalk])
+
+(def enumerated-board
+  (mapv vector (range) board-layout))
+
+(def tile-indices
+  (reduce (fn [acc [i tile]]
+            (update acc tile #(conj % i)))
+          {}
+          enumerated-board))
+
+(defn indexes-satisfying [pred]
+  (map first
+    (filter #(pred (second %)) enumerated-board)))
+
+(defn closest-index [target-indices current-index]
+  (first
+    (reduce (fn [[acc-i acc-s-dist :as old] i]
+              (let [raw-dist (- i current-index)
+                    sqd-dist (* raw-dist raw-dist)]
+                (if (< sqd-dist acc-s-dist)
+                  [i sqd-dist]
+                  old)))
+
+            [nil Long/MAX_VALUE]
+
+            target-indices)))
