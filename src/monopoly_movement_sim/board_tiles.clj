@@ -5,8 +5,8 @@
                                  ::free-parking ::income-tax ::luxury-tax})
 
 (def property-markers #{::brown ::light-blue ::violet ::orange
-                        ::red ::yellow ::green ::blue
-                        ::railroad ::utility})
+                        ::red ::yellow ::green ::blue})
+
 
 ; TODO: Only 39!? Missing 1 tile
 (def board-tiles
