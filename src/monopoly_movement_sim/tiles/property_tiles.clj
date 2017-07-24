@@ -40,9 +40,3 @@
 
    ::park ::blue,
    ::boardwalk ::blue})
-
-(def non-colored-properties
-  (reduce into [] [rail-roads utilities]))
-
-(def colored-properties
-  (keys property-colors))

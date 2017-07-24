@@ -7,7 +7,6 @@
             [monopoly-movement-sim.tiles.misc-tiles :as mt]
             [monopoly-movement-sim.tiles.property-tiles :as pt]))
 
-; TODO: Find out how many cards are in a standard monopoly deck.
 (def standard-deck-size 18)
 
 (defn shuffle-deck [deck rand-gen]
@@ -26,6 +25,7 @@
   [#(sh/goto-tile % ::mt/jail)
    #(sh/goto-tile % ::mt/go)])
 
+; TODO: Currently doens't "activate" the tile that was landed on as the result of moving. If the "Go back 3 spaces" card causes the player to land on a community chest tile, a second card is not drawn. There's only a ~0.2% chance of this happening though, so the chance is low of it affecting results.
 (def chance-move-cards
   (let [goto-rail #(sh/goto-closest-satisfying % pt/rail-roads)]
     [#(sh/goto-tile % ::mt/go)

@@ -3,17 +3,13 @@
             [helpers.general-helpers :as g]))
 
 (defn wrap-board-index [i]
-  (g/wrap i
+  (g/unsafe-wrap i
           0 (dec (count bl/board-layout))))
 
 (defn move-player-by [state n-tiles]
   (update state :player-index
           #(wrap-board-index
              (+ % n-tiles))))
-
-(defn move-player-to [state tile-i]
-  (assoc state :player-index
-               (wrap-board-index tile-i)))
 
 (defn player-position [state]
   (get state :player-index))
